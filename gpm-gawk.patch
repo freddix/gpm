@@ -1,0 +1,17 @@
+--- ./doc/Makefile.in.orgnl	Mon Mar 11 23:57:59 2002
++++ ./doc/Makefile.in	Tue Mar 12 00:23:14 2002
+@@ -52,11 +52,11 @@
+ 
+ # TXT (-)
+ %.txt: %.info
+-	$(AWK) -f $(srcdir)/mktxt $< > $@
++	$(srcdir)/mktxt $< > $@
+ 
+ # MAN (-)
+ $(MANPAGES): gpm.man
+ gpm.man: doc.gpm $(srcdir)/manpager
+-	$(AWK) -f $(srcdir)/manpager doc.gpm
++	$(srcdir)/manpager doc.gpm
+ 	for i in gpm-root.1 gpm-types.7 gpm.8 mev.1 mouse-test.1; do \
+ 		expand $$i | sed s/^'[ ]*'//g > $$i.new; \
+ 		mv $$i.new $$i; \
