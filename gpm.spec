@@ -1,7 +1,7 @@
 Summary:	General Purpose Mouse support for Linux
 Name:		gpm
 Version:	1.20.6
-Release:	3
+Release:	5
 Epoch:		1
 License:	GPL v2+
 Group:		Daemons
@@ -92,7 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %systemd_preun gpm.service
 
 %postun
-%systemd_reload
+%systemd_postun
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %post	libs -p /usr/sbin/ldconfig
