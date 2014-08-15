@@ -1,12 +1,12 @@
 Summary:	General Purpose Mouse support for Linux
 Name:		gpm
-Version:	1.20.6
-Release:	5
+Version:	1.20.7
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Daemons
 Source0:	http://www.nico.schottelius.org/software/gpm/archives/%{name}-%{version}.tar.lzma
-# Source0-md5:	9dcb5d3a7db1686adb0974a55098b9e3
+# Source0-md5:	fa8a6fe09826896625ca557ac5e42ed7
 Source1:	%{name}.sysconfig
 Source2:	%{name}.service
 Patch0:		%{name}-DESTDIR.patch
@@ -55,12 +55,18 @@ take advantage of the mouse.
 %patch2 -p1
 %patch3 -p1
 
-sed -i -e 's#/usr##' doc/manpager
+%{__sed } -i 's#/usr##' doc/manpager
+cat configure.ac.footer >> configure.ac
 
 %build
-%{__aclocal}
+mkdir config
+./autogen.sh
+%{__libtoolize}
+%{__aclocal} -I config
+%{__autoheader}
 %{__autoconf}
 %configure \
+	--disable-static    \
 	--with-curses
 %{__make}
 
@@ -100,7 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc BUGS Changes README TODO doc/FAQ doc/README* conf/*.conf
+%doc README TODO doc/FAQ doc/README* conf/*.conf
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/mouse
 %{systemdunitdir}/gpm.service
 
