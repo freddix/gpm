@@ -1,7 +1,7 @@
 Summary:	General Purpose Mouse support for Linux
 Name:		gpm
 Version:	1.20.7
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL v2+
 Group:		Daemons
